@@ -11,10 +11,10 @@ type Article struct {
 	Title      string `json:"title"`
 	Desc       string `json:"desc"`
 	Content    string `json:"content"`
-	CreatedBy  string `json:"created_by"`
-	ModifiedBy string `json:"modified_by"`
+	CreatedBy  string `json:"createdBy"`
+	ModifiedBy string `json:"modifiedBy"`
 	State      int    `json:"state"`
-	CoverUrl   string `json:"cover_url"`
+	CoverUrl   string `json:"coverUrl"`
 }
 
 func ExistArticleByID(id int) (bool, error) {

@@ -1,18 +1,16 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 )
 
 type Tag struct {
 	Model
 
-	Name       string `json: "name"`
-	CreatedBy  string `json: "created_by"`
-	ModifiedBy string `json: "modified_by"`
-	State      int    `json: "state"`
+	Name       string `json:"name"`
+	CreatedBy  string `json:"createdBy"`
+	ModifiedBy string `json:"modifiedBy"`
+	State      int    `json:"state"`
 }
 
 func GetTags(pageNum int, pageSize int, maps interface{}) ([]Tag, error) {
@@ -21,11 +19,7 @@ func GetTags(pageNum int, pageSize int, maps interface{}) ([]Tag, error) {
 		err  error
 	)
 
-	if pageSize > 0 && pageNum > 0 {
-		err = db.Where(maps).Find(&tags).Offset(pageNum).Limit(pageSize).Error
-	} else {
-		err = db.Where(maps).Find(&tags).Error
-	}
+	err = db.Where(maps).Find(&tags).Offset(pageNum).Limit(pageSize).Error
 
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
@@ -68,7 +62,6 @@ func ExistTagByID(id int) (bool, error) {
 }
 
 func AddTag(name string, state int, createdBy string) error {
-	fmt.Println("name: %s", name)
 	tag := Tag{
 		Name:      name,
 		State:     state,
